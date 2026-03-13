@@ -1,0 +1,34 @@
+testnet:
+  chain_id: 3945
+  token: "NEX"
+  rpc_http: "https://testnet.rpc.nexus.xyz"
+  rpc_ws: "wss://testnet.rpc.nexus.xyz"
+  explorer_api: "https://testnet.explorer.nexus.xyz/api"
+  explorer_ui: "https://testnet.explorer.nexus.xyz"
+  faucet: "https://faucet.nexus.xyz"
+
+# Uncomment and fill when ready for mainnet migration
+# mainnet:
+#   chain_id: 3946
+#   token: "NEX"
+#   rpc_http: "TBD"
+#   rpc_ws: "TBD"
+#   explorer_api: "TBD"
+#   explorer_ui: "TBD"
+
+docs:
+  base_url: "https://docs.nexus.xyz"
+  key_pages:
+    - "/"
+    - "/architecture/nexuscore"
+    - "/architecture/nexusevm"
+    - "/architecture/dual-block-execution"
+    - "/trading/perpetuals"
+    - "/trading/spot"
+    - "/trading/vaults"
+
+github:
+  repo: "nexus-xyz/nexus"
+  monorepo_context_paths:
+    - "README.md"
+    - "CHANGELOG.md"

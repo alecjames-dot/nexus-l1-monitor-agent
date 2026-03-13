@@ -1,0 +1,15 @@
+# Nexus Testnet — On-Chain Address Watch List
+# Required by Aeon. Add addresses to watch for activity.
+# Format: list of {address, label, alert_on: [tx, event, balance_change]}
+
+watches: []
+
+# Example entries (uncomment and fill when known):
+# - address: "0x..."
+#   label: "Nexus Faucet Contract"
+#   alert_on: [tx]
+#   chain_id: 3945
+# - address: "0x..."
+#   label: "USDX Token Contract"
+#   alert_on: [event, balance_change]
+#   chain_id: 3945

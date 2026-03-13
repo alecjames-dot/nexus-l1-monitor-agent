@@ -1,0 +1,41 @@
+# Aeon — Autonomous Agent Scheduler
+# Skills are executed by Claude Code in GitHub Actions on the configured schedule.
+# Memory is persisted via git commits. Notifications fan out via ./notify.
+
+version: "1"
+
+skills:
+  nexus-testnet-pulse:
+    enabled: true
+    schedule: "*/15 * * * *"
+    skill_path: "skills/nexus-testnet-monitor/sub-skills/pulse-check/SKILL.md"
+    description: "Nexus testnet health check — block height, RPC latency, gas price, faucet"
+    silent_ok: true
+
+  nexus-testnet-digest:
+    enabled: true
+    schedule: "0 14 * * *"
+    skill_path: "skills/nexus-testnet-monitor/sub-skills/daily-digest/SKILL.md"
+    description: "Daily product metrics digest — engagement, contracts, developer funnel, goals"
+    silent_ok: false
+
+  nexus-contract-scout:
+    enabled: true
+    schedule: "0 */6 * * *"
+    skill_path: "skills/nexus-testnet-monitor/sub-skills/contract-scout/SKILL.md"
+    description: "Discover and score new contracts deployed since last scout run"
+    silent_ok: true
+
+  nexus-testnet-trend:
+    enabled: true
+    schedule: "0 15 * * 1"
+    skill_path: "skills/nexus-testnet-monitor/sub-skills/trend-report/SKILL.md"
+    description: "Weekly trend analysis with charts, ERI score, scorecard, and recommendations"
+    silent_ok: false
+
+  nexus-competitive-bench:
+    enabled: true
+    schedule: "0 10 1 * *"
+    skill_path: "skills/nexus-testnet-monitor/sub-skills/competitive-bench/SKILL.md"
+    description: "Monthly competitive benchmark against Sei, Hyperliquid, Injective, dYdX"
+    silent_ok: false

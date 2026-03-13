@@ -1,0 +1,10 @@
+routing:
+  p0: ["#nexus-testnet-ops", "#nexus-core"]
+  p1: ["#nexus-testnet-ops"]
+  p2: ["#nexus-testnet-product"]
+  digest: "#nexus-testnet-product"
+  scout: "#nexus-testnet-product"
+  trend: "#nexus-testnet-product"
+  anomaly: "#nexus-testnet-ops"
+  benchmark: "#nexus-testnet-product"
+  docs_freshness: "#nexus-testnet-product"

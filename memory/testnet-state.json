@@ -1,0 +1,11 @@
+{
+  "last_block_height": 0,
+  "last_block_time": null,
+  "last_gas_price_gwei": 0,
+  "last_base_fee_gwei": 0,
+  "last_rpc_latency_ms": 0,
+  "last_faucet_status": "unknown",
+  "consecutive_no_blocks": 0,
+  "alert_cooldown": {},
+  "last_check": null
+}

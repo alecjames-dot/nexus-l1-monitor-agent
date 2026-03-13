@@ -1,0 +1,53 @@
+chain:
+  block_time_target_s: [1.0, 2.0]
+  block_time_alert_s: [0.5, 3.0]
+  gas_price_warn_gwei: 50
+  gas_price_alert_gwei: 100
+  no_blocks_alert_checks: 2
+  rpc_latency_warn_ms: 500
+  rpc_latency_alert_ms: 2000
+  rpc_error_rate_warn: 0.05
+  rpc_error_rate_alert: 0.20
+  pending_tx_congestion: 500
+
+faucet:
+  response_warn_ms: 3000
+  response_alert_ms: 5000
+
+engagement:
+  daily_active_addresses_target: 500
+  daily_contract_deploys_target: 5
+  organic_ratio_floor: 0.50
+  verification_rate_target: 0.60
+
+contract_scout:
+  min_unique_interactors: 5
+  min_score_for_highlight: 0.60
+  wash_filter_threshold: 0.80
+  highlight_max_per_run: 5
+
+anomaly_detection:
+  learning_mode_days: 14
+  mild_anomaly_z: 2.0
+  significant_anomaly_z: 3.0
+  baseline_window_days: 30
+
+exchange_readiness:
+  trading_primitive_weight: 0.25
+  token_pair_weight: 0.15
+  financial_diversity_weight: 0.20
+  trading_tx_share_weight: 0.15
+  developer_intent_weight: 0.15
+  nexuscore_utilization_weight: 0.10
+
+alerts:
+  cooldown_minutes: 60
+  escalation_enabled: true
+  p0_channels: ["#nexus-testnet-ops"]
+  p1_channels: ["#nexus-testnet-ops"]
+  p2_channels: ["#nexus-testnet-product"]
+  digest_channel: "#nexus-testnet-product"
+  scout_channel: "#nexus-testnet-product"
+  trend_report_channel: "#nexus-testnet-product"
+  anomaly_channel: "#nexus-testnet-ops"
+  benchmark_channel: "#nexus-testnet-product"

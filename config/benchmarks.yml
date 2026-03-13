@@ -1,0 +1,28 @@
+peers:
+  - name: "Sei"
+    defi_llama_slug: "sei"
+    chain_type: "exchange_l1"
+    notes: "Parallel EVM, optimized for trading"
+  - name: "Hyperliquid"
+    defi_llama_slug: "hyperliquid"
+    chain_type: "exchange_l1"
+    notes: "Custom L1 for perps"
+  - name: "Injective"
+    defi_llama_slug: "injective"
+    chain_type: "exchange_l1"
+    notes: "Cosmos-based exchange chain"
+  - name: "dYdX Chain"
+    defi_llama_slug: "dydx"
+    chain_type: "exchange_l1"
+    notes: "Cosmos-based, dedicated perps chain"
+
+comparison_metrics:
+  - block_time
+  - daily_active_addresses
+  - daily_transactions
+  - monthly_contract_deployments
+  - gas_cost_usd
+  - tvl
+  - time_to_finality
+
+schedule: "monthly"

@@ -1,0 +1,40 @@
+last_updated: "2026-03-13T00:00:00Z"
+updated_by: "alec"
+
+goals:
+  short_term:
+    - metric: "verified_contracts_total"
+      target: 25
+      deadline: "2026-03-31"
+      status: "in_progress"
+    - metric: "organic_dau"
+      target: 500
+      deadline: "2026-03-31"
+      status: "in_progress"
+
+  medium_term:
+    - description: "3+ dApps with >50 organic users each"
+      target: 3
+      current: 0
+      status: "not_started"
+    - description: "Developer verification rate >60%"
+      target: 0.60
+      current: 0
+      status: "not_started"
+
+  long_term:
+    - description: "All chain characteristics scorecard dimensions green for mainnet readiness"
+      status: "tracking"
+    - description: "Sustainable organic DAU >2000 on testnet"
+      status: "not_started"
+
+focus_weights:
+  elevated: []
+  deprioritized: []
+  expires: null
+
+context_notes:
+  - "Testing agent on testnet before mainnet deployment"
+  - "Exchange L1 thesis: track whether builders are creating trading/financial primitives"
+  - "NexusCore co-processors will handle matching/liquidation natively at the protocol level — flag any contracts that replicate this on NexusEVM as potential migration candidates or alignment signals"
+  - "Dual-block architecture: NexusCore at 50-100ms, NexusEVM every 4-10 Core blocks"

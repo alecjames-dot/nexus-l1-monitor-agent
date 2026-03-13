@@ -1,0 +1,16 @@
+{
+  "name": "nexus-testnet-graphs",
+  "version": "1.0.0",
+  "description": "Server-side SVG chart generation for Nexus testnet trend reports",
+  "private": true,
+  "main": "generate-charts.js",
+  "scripts": {
+    "generate": "node generate-charts.js",
+    "test": "node generate-charts.js --week=2026-11 --data-dir=../../../memory/testnet-digests --mock"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "chartjs-node-canvas": "^4.1.6",
+    "d3": "^7.8.5"
+  }
+}

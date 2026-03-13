@@ -1,0 +1,13 @@
+{
+  "developers": {},
+  "funnel_snapshot": {
+    "date": null,
+    "stage_1_faucet": 0,
+    "stage_2_first_tx": 0,
+    "stage_3_first_deploy": 0,
+    "stage_4_verified": 0,
+    "stage_5_second_deploy": 0,
+    "stage_6_traction": 0,
+    "conversion_rates": {}
+  }
+}
