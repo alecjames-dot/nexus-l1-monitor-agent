@@ -1,0 +1,43 @@
+#!/bin/bash
+# Nexus monitor notification fan-out
+# Usage: ./notify --channel="#channel" --severity="p0" --message="text"
+#        echo "message" | ./notify --channel="#channel"
+
+CHANNEL=""
+SEVERITY="info"
+MESSAGE=""
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --channel=*) CHANNEL="${1#*=}" ;;
+    --severity=*) SEVERITY="${1#*=}" ;;
+    --message=*) MESSAGE="${1#*=}" ;;
+    *) MESSAGE="$1" ;;
+  esac
+  shift
+done
+
+# Read from stdin if no --message
+if [ -z "$MESSAGE" ]; then
+  MESSAGE=$(cat)
+fi
+
+# Slack webhook (set SLACK_WEBHOOK_URL as a GitHub secret)
+if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$MESSAGE" ]; then
+  PAYLOAD=$(python3 -c "
+import json, sys
+msg = sys.argv[1]
+channel = sys.argv[2] if len(sys.argv) > 2 else ''
+payload = {'text': msg}
+if channel:
+    payload['channel'] = channel
+print(json.dumps(payload))
+" "$MESSAGE" "$CHANNEL")
+
+  curl -s -X POST "$SLACK_WEBHOOK_URL" \
+    -H "Content-Type: application/json" \
+    -d "$PAYLOAD" > /dev/null
+fi
+
+# Log everything regardless
+echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] [${SEVERITY^^}] ${CHANNEL}: ${MESSAGE:0:200}"

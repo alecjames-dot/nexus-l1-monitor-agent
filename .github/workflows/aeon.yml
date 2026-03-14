@@ -1,0 +1,80 @@
+name: Aeon — Nexus Monitor
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+    - cron: "0 14 * * *"
+    - cron: "0 */6 * * *"
+    - cron: "0 15 * * 1"
+    - cron: "0 10 1 * *"
+  workflow_dispatch:
+    inputs:
+      skill:
+        description: "Skill to run manually"
+        required: true
+        type: choice
+        options:
+          - nexus-testnet-pulse
+          - nexus-testnet-digest
+          - nexus-contract-scout
+          - nexus-testnet-trend
+          - nexus-competitive-bench
+
+jobs:
+  run-skill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Determine skill to run
+        id: skill
+        run: |
+          if [ -n "${{ github.event.inputs.skill }}" ]; then
+            echo "name=${{ github.event.inputs.skill }}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          MINUTE=$(date -u +%M)
+          HOUR=$(date -u +%H)
+          DOW=$(date -u +%u)
+          DOM=$(date -u +%d)
+
+          if [ "$DOM" = "01" ] && [ "$HOUR" = "10" ] && [ "$MINUTE" = "00" ]; then
+            echo "name=nexus-competitive-bench" >> $GITHUB_OUTPUT
+          elif [ "$DOW" = "1" ] && [ "$HOUR" = "15" ] && [ "$MINUTE" = "00" ]; then
+            echo "name=nexus-testnet-trend" >> $GITHUB_OUTPUT
+          elif [ "$HOUR" = "14" ] && [ "$MINUTE" = "00" ]; then
+            echo "name=nexus-testnet-digest" >> $GITHUB_OUTPUT
+          elif [ "$MINUTE" = "00" ] && ([ "$HOUR" = "00" ] || [ "$HOUR" = "06" ] || [ "$HOUR" = "12" ] || [ "$HOUR" = "18" ]); then
+            echo "name=nexus-contract-scout" >> $GITHUB_OUTPUT
+          else
+            echo "name=nexus-testnet-pulse" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run skill via Claude Code
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          AEON_SKILL: ${{ steps.skill.outputs.name }}
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude --print --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
+            "You are running as an Aeon skill scheduler. The skill to execute is: $AEON_SKILL. Read SKILL.md and execute the instructions for that skill. The current working directory is the repo root." \
+            < SKILL.md
+
+      - name: Commit memory updates
+        run: |
+          git config user.name "aeon-bot"
+          git config user.email "aeon@nexus-monitor"
+          git add memory/
+          if ! git diff --cached --quiet && [ "${AEON_SILENT_EXIT:-false}" != "true" ]; then
+            git commit -m "chore: aeon state update [${{ steps.skill.outputs.name }}] $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+            git push
+          fi
